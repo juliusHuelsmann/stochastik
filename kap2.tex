@@ -173,11 +173,75 @@
 \newcommand{\invisible}[1]{#1}
 % \newcommand{\erklaerung}[1]{}
 %opening
-\title{Mitschrift Stochastik}
+\title{Mitschrift Stochastik - Kapitel 2, Statistische Standardmodelle}
 \author{Sarah, Julius}
 	\pagestyle{fancy}
 \begin{document}
 	\maketitle
 	\newpage
-	\section{Gleichverteilung}
+	\section{2.1 Gleichverteilung }
+	
+	\begin{myDef}[diskrete Gleichverteilung]
+		
+		Wahrscheinlichkeitsraum $(\Omega, A, P)$ wird als Laplace-Raum bezeichnet.
+		
+		$\Omega = \{\omega_1, \dots, \omega_n\}$, $| \Omega | = n$. $A = P(\Omega)$. $P(\Omega) = \frac{1}{|\Omega|} =: U_\Omega$\\
+		{\bf Anwendung} wenn diskret und alle $\omega \in \Omega$ gleichberechtigt.
+		
+	\end{myDef}
+	
+	\invisible{
+		
+		Beispiel: Bose Einstein Verteilung
+		System $n$ unterschiedlicher Teilchen, die sich in $N$ unterschiedlcihen Zellen befinden. 
+		
+		Suche die Anzahl der Teilchen in einer bestimmten Zelle.
+		}
+	
+	
+	
+	
+	
+	
+	
+	\begin{myDef}[stetige Gleichverteilung, GLV in Kontinuum]
+		
+		Analog zu oben, nur $\Omega \subseteq R^n$, $A = B_{\Omega}$, $\rho(x):= \frac{1}{\lambda^n(\Omega)}, U_\Omega(A) = \int \limits_{n} \rho (u) d u = \frac{\lambda(A)}{\lambda^n(\Omega)}$
+	\end{myDef}
+	
+	
+	\section{2.2 Urnenmodell mit Zurücklegen }
+	\begin{myDef}[geordentes Urnenmodell mit Zurücklegen]
+		Es seien gegeben
+		\begin{align*}
+			N &:= \text{Anzahl Kugeln}, \\
+			E &:= \text{Menge der Farben, hier soll } 2\leq |E| < \infty, \\
+			a &:= \text{Farbe } a \in E,\\
+			N_a &:= \text{Anzahl der Kugeln der Farbe } a \in E,\\
+			n&:= \text{Anzahl der Stichproben (Züge aus der Urne)}, \\
+	\\
+	\Omega&:=E^n \\
+	F&:=P(\Omega) \\
+	P &:= ?
+		\end{align*}
+		Zur Konstruktion des Maßes nummeriere die Kugeln mit Zahlen aus $\{1,\dots N \}$ durch und vergrößere künstlich die Beobachtungstiefe, sodass die bereits definierte diskrete Gleichverteilung verwendet werden kann.
+		\begin{align*}
+			F_a &:= \text{Menge der Nummern der Kugeln mit Farbe} a \in E\\
+			\\
+			\bar \Omega&:=\{1, \dots, N \}^n \\
+			\bar F&:=P(\bar \Omega) 			\\
+			\bar P &:= U_{\bar \Omega}
+		\end{align*}
+		
+		Erhalte somit durch Konstruktion einer Zufallsvariable $X : \bar \Omega \rightarrow \Omega$ durch Komponentenweise Betrachtung:
+		$$ P(\{\omega\}\}) := \bar P \circ X^{-1} (\{\omega \}) = \prod\limits_{\omega_i i-te Komp von \omega} \rho(\omega_i) $$
+		mit 
+		$$ \rho(\omega_i) := \frac{|N_{\omega_i}|}{N}$$
+	\end{myDef}
+	
+	\begin{myDef}
+		Es sei $\rho$ Zähldichte auf $E$. Die {\bf $n-$fache Produktdichte} von $\rho$ ist definiert als $$\rho^{\times n} (\omega) := \prod \limits_{i = 1}^{n} \rho(\omega_i).$$
+		Das zugehörige Wahrscheinlichkeitsmaß heißt {\bf $n-$faches Produktmaß} zu $\rho$.
+	\end{myDef}
+	
 \end{document}
