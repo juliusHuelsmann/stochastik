@@ -13,6 +13,7 @@
 \usepackage{color}
 \usepackage{hyperref}
 
+\usepackage[arrow, matrix, curve]{xy}
 
 %\newenvironment{ex}{begdef}{enddef}
 % Theorem und Satz           
@@ -39,6 +40,11 @@
 \newcommand{\N}{\mathbbm N}
 \newcommand{\K}{\mathbbm K}
 \newcommand{\R}{\mathbbm R}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\PP}{\mathbbm P}
 %\newcommand{\r}{\mathbbm R}
 \newcommand{\C}{\mathbbm C}
 \newcommand{\Z}{\mathbbm Z}
@@ -178,14 +184,23 @@
 	\pagestyle{fancy}
 \begin{document}
 	\maketitle
+	\tableofcontents
+	\section{Einführung}
 	\newpage
-	\section{2.1 Gleichverteilung }
+	\section{Stochastische Standardmodelle}
+	\subsection{Gleichverteilung }
 	
 	\begin{myDef}[diskrete Gleichverteilung]
 		
-		Wahrscheinlichkeitsraum $(\Omega, A, P)$ wird als Laplace-Raum bezeichnet.
+		Wahrscheinlichkeitsraum $(\Omega, A, \PP)$ wird als Laplace-Raum bezeichnet.
 		
-		$\Omega = \{\omega_1, \dots, \omega_n\}$, $| \Omega | = n$. $A = P(\Omega)$. $P(\Omega) = \frac{1}{|\Omega|} =: U_\Omega$\\
+		\begin{align*}
+		n &:= | \Omega |, \\
+		\\
+		\Omega &:= \{\omega_1, \dots, \omega_n\}, \\
+		\A &:= P(\Omega),\\
+		\PP(A) &:= \frac{|A|}{|\Omega|} =: \U_\Omega
+		\end{align*}
 		{\bf Anwendung} wenn diskret und alle $\omega \in \Omega$ gleichberechtigt.
 		
 	\end{myDef}
@@ -205,43 +220,98 @@
 	
 	
 	\begin{myDef}[stetige Gleichverteilung, GLV in Kontinuum]
-		
-		Analog zu oben, nur $\Omega \subseteq R^n$, $A = B_{\Omega}$, $\rho(x):= \frac{1}{\lambda^n(\Omega)}, U_\Omega(A) = \int \limits_{n} \rho (u) d u = \frac{\lambda(A)}{\lambda^n(\Omega)}$
+		Analog:
+		\begin{align*}
+			\Omega &:\subseteq R^n,\\
+			\A &:= \B_{\Omega},\\
+			\rho(x) &:= \frac{1}{\lambda^n(\Omega)},\\ 
+			\U_\Omega(A) &:= \int \limits_{A} \rho (u) d u = \frac{\lambda(A)}{\lambda^n(\Omega)}
+		\end{align*}
+		{\bf Anwendung} wenn $\Omega$ nicht endlich und alle $\omega \in \Omega$ gleichberechtigt.
 	\end{myDef}
 	
+	\newpage
 	
-	\section{2.2 Urnenmodell mit Zurücklegen }
+	\subsection{Urnenmodell mit Zurücklegen }
+	\subsubsection{geordnete Stichprobe}
 	\begin{myDef}[geordentes Urnenmodell mit Zurücklegen]
 		Es seien gegeben
 		\begin{align*}
 			N &:= \text{Anzahl Kugeln}, \\
 			E &:= \text{Menge der Farben, hier soll } 2\leq |E| < \infty, \\
 			a &:= \text{Farbe } a \in E,\\
-			N_a &:= \text{Anzahl der Kugeln der Farbe } a \in E,\\
+			F_a &:= \text{Menge der Nummern der Kugeln mit Farbe } a \in E,\\
+			N_a &:= |F_a|, \text{Anzahl der Kugeln der Farbe } a \in E,\\
 			n&:= \text{Anzahl der Stichproben (Züge aus der Urne)}, \\
 	\\
-	\Omega&:=E^n \\
-	F&:=P(\Omega) \\
-	P &:= ?
+	\Omega&:=E^n, \\
+	 \F&:=P(\Omega),\\
+	 \PP &:= \text{ gesuchtes Wahrscheinlichkeitsmaß}.
 		\end{align*}
 		Zur Konstruktion des Maßes nummeriere die Kugeln mit Zahlen aus $\{1,\dots N \}$ durch und vergrößere künstlich die Beobachtungstiefe, sodass die bereits definierte diskrete Gleichverteilung verwendet werden kann.
 		\begin{align*}
-			F_a &:= \text{Menge der Nummern der Kugeln mit Farbe} a \in E\\
-			\\
-			\bar \Omega&:=\{1, \dots, N \}^n \\
-			\bar F&:=P(\bar \Omega) 			\\
-			\bar P &:= U_{\bar \Omega}
+			\bar \Omega:=\{1, \dots, N \}^n, \quad
+			\bar \F:=\PP(\bar \Omega), 			\quad
+		\bar	\PP := \U_{\bar \Omega}.
 		\end{align*}
 		
 		Erhalte somit durch Konstruktion einer Zufallsvariable $X : \bar \Omega \rightarrow \Omega$ durch Komponentenweise Betrachtung:
-		$$ P(\{\omega\}\}) := \bar P \circ X^{-1} (\{\omega \}) = \prod\limits_{\omega_i i-te Komp von \omega} \rho(\omega_i) $$
+		$$ \PP(\{\omega\}\}) := \bar \PP \circ X^{-1} (\{\omega \}) = \prod\limits_{i = 1}^n \rho(\omega_i) $$
 		mit 
-		$$ \rho(\omega_i) := \frac{|N_{\omega_i}|}{N}$$
+		$$ \rho(\omega_i) := \frac{|N_{\omega_i}|}{N},$$
+		in Worten
+		Die Wahrscheinlichkeit, dass unter Berücksichtigung der Reihenfolge die Kugeln $\omega_1, \dots, \omega_n$  gezogen werden, ist gegeben durch
+		$$ \prod\limits_{i = 1}^n\frac{\text{Anzahl der Kugeln Mit Farbe }\omega_i}{\text{Anzahl der Kugeln insgesamt}}.$$
 	\end{myDef}
 	
 	\begin{myDef}
 		Es sei $\rho$ Zähldichte auf $E$. Die {\bf $n-$fache Produktdichte} von $\rho$ ist definiert als $$\rho^{\times n} (\omega) := \prod \limits_{i = 1}^{n} \rho(\omega_i).$$
 		Das zugehörige Wahrscheinlichkeitsmaß heißt {\bf $n-$faches Produktmaß} zu $\rho$.
 	\end{myDef}
+	\newpage
+	\subsubsection{ungeordnete Stichprobe}
+	Es ist wieder eine künstliche Vergrößerung der Beobachtungstiefe erforderlich. Definiere für $k_a$ Anzahl der Kugeln mit Farbe $a$ folgenden Wahrscheinlichkeitsraum:
+	
+	\begin{align*}
+		\hat \Omega &:= \{\vec  k = (k_a)_{a\in E} : k_a \in \N_0, \sum\limits_{a \in E} k_a = n \}\\
+		\hat \F &:= P(\Omega)		\\
+		\hat \PP (\{\omega\}) &:= \binom{n}{\vec k} \cdot \prod_{a \in E} \rho(a)^{k_a}
+	\end{align*}
+	
+	\begin{myDef}[Multinoumialkoeffizient] Für $\vec k = (k_a)_{a\in E}$ definiere
+		$$ \binom{n}{\vec k} \cdot \prod_{a \in E} := \begin{cases}
+		\frac{n!}{\prod\limits_{a\in E} k_a!} & \text{ falls } \sum\limits_{a\in E} k_a = n,\\
+		0 & sonst.
+		\end{cases}$$
+	\end{myDef}
+	
+	
+	\subsubsection{Zusammenfassung}
+	$$\begin{xy}
+		\xymatrix{
+			Gleichverteilung   							&   (\bar\Omega, \bar\F, \bar\PP = \U_{\bar \Omega})  \ar[d]^{\text{reduktion Beobachtungstiefe }X}  \\
+			geordnete Sticprobe   					 &  (\Omega, \F, \PP)  \ar[d]^{\text{reduktion Beobachtungstiefe }S}   \\
+			unegordnete Stichprobe                &   (\hat\Omega, \hat\F, \hat\PP)  
+		}
+	\end{xy}$$
+	Zugehörige Wahrscheinlichkeitsmaße:
+	\begin{align*}
+		 \PP(\{\omega\}) &:= \prod\limits_{i = 1}^n \rho(\omega_i) \\
+		\hat \PP (\{\omega\}) &:= \binom{n}{\vec k} \cdot \prod_{a \in E} \rho(a)^{k_a}
+	\end{align*}
+	
+	\subsection{Urnenmodell ohne Zurücklegen}
+	\subsubsection{nummerierte Kugeln}
+	\subsubsection{gefärbte Kugeln}
+	\subsection{Poisson-Verteilung}
+	\subsection{Wartezeitverteilung}
+	\subsubsection{negative Binominialverteilung}
+	\subsubsection{Gamma-Verteilung}
+	\subsubsection{Die Beta-Verteilung}
+	\subsection{Normalverteilung}
+	\newpage
+	\section{Bedingte Wahrscheinlichkeiten und Unabhängigkeit}
+	\subsection{Bedingte Wahrscheinlichkeiten}
+	%\subsection{Unabhängigkeit}
 	
 \end{document}
